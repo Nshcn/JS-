@@ -54,6 +54,8 @@
       this.renderMap();
       // 判断是否可以消行
       game.map.checkRemove();
+      // 判断游戏是否结束
+      this.checkOver();
     }
   };
   // 判断是否能够向左移动，如果可以则移动
@@ -101,6 +103,14 @@
           // 改变地图的mapCode数据
           game.map.mapCode[this.row + i][this.col + j] = this.code[i][j];
         }
+      }
+    }
+  };
+  Block.prototype.checkOver = function () {
+    for (var j = 0; j < game.col; j++) {
+      if (game.map.mapCode[0][j] != 0) {
+        clearInterval(game.timer);
+        alert("游戏结束");
       }
     }
   };
