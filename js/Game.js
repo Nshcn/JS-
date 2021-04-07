@@ -14,6 +14,10 @@
     this.start();
     //   事件监听
     this.bindEvent();
+    //   分数
+    this.score = 0;
+    //   速度
+    this.during = 30;
   };
   Game.prototype.init = function () {
     // 初始化大表格
@@ -106,7 +110,12 @@
   };
   Game.prototype.start = function () {
     var self = this;
+    // 设置帧编号
+    this.f = 0;
     this.timer = setInterval(() => {
+      self.f++;
+      // 渲染帧编号
+      document.getElementById("f").innerHTML = "帧编号：" + self.f;
       // 清屏
       self.clear();
       // 渲染方块
@@ -115,8 +124,8 @@
       self.setNextColor();
       //   渲染地图
       self.map.render(self);
-      // 下落
-      self.block.checkDown();
-    }, 500);
+      // 下落，通过帧编号%步长控制下落的速度
+      self.f % this.during == 0 && self.block.checkDown();
+    }, 20);
   };
 })();

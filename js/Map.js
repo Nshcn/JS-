@@ -46,6 +46,22 @@
         this.mapCode.splice(i, 1);
         //   删除一行补一行，unshift会在数组头部插入指定的参数
         this.mapCode.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        // 分数增加，根据不同的速度决定加多少分数
+        if (game.during <= 30 && game.during >= 20) {
+          game.score += 10;
+        } else if (game.during < 20 && game.during >= 10) {
+          game.score += 20;
+        } else {
+          game.score += 30;
+        }
+        // 渲染分数
+        document.getElementById("score").innerHTML = "分数：" + game.score;
+        if (game.score % 100 == 0) {
+          game.during -= 5;
+          if (game.during <= 0) {
+            game.during = 1;
+          }
+        }
       }
     }
   };
