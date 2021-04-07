@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+            background: url(./images/bg2.png) repeat-x center bottom, -webkit-linear-gradient(top, skyblue, white);
+            background-size: 20% auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 10px auto;
+        }
+
+        td {
+            border: 1px solid red;
+            width: 25px;
+            height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/BLOCK_JSON.js"></script>
+    <script src="js/Game.js"></script>
+    <script>
+        var game = new Game();
+    </script>
+</body>
+
+</html>
