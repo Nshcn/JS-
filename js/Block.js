@@ -48,8 +48,10 @@
     if (this.check(this.row + 1, this.col)) {
       this.row++;
     } else {
-      // 此时就是下落到底的状态，生成新方块
-      game.block = new Block();
+      // 此时就是下落到底的状态，渲染预览框的方块
+      game.block = game.nextBlock;
+      // 让预览框的方块再次渲染新的方块
+      game.nextBlock = new Block();
       // 方块已经到底了，然后要渲染到地图的code中
       this.renderMap();
       // 判断是否可以消行

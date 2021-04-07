@@ -6,6 +6,8 @@
     this.init();
     //   实例方块
     this.block = new Block();
+    //   实例下一个方块
+    this.nextBlock = new Block();
     //   实例地图
     this.map = new Map(this);
     //   启动定时器
@@ -16,6 +18,7 @@
   Game.prototype.init = function () {
     // 初始化大表格
     var $table = $("<table></table");
+    $table.addClass("tab1");
     // 渲染表格
     for (var i = 0; i < this.row; i++) {
       // 创建tr
@@ -28,21 +31,54 @@
       // tr放到table里
       $tr.appendTo($table);
     }
+    // 初始化预览窗口
+    var $table2 = $("<table></table");
+    $table2.addClass("tab2");
+    for (var i = 0; i < 4; i++) {
+      var $tr2 = $("<tr></tr>");
+      for (var j = 0; j < 4; j++) {
+        var $td2 = $("<td></td>");
+        $td2.appendTo($tr2);
+      }
+      $tr2.appendTo($table2);
+    }
     $table.appendTo("body");
+    $table2.appendTo("body");
   };
   Game.prototype.setColor = function (row, col, num) {
     //   给对应的有颜色的方块添加类名
-    $("tr")
+    $(".tab1")
+      .find("tr")
       .eq(row) // eq选择器选取带有指定index值的元素
       .children("td")
       .eq(col)
       .addClass("c" + num);
   };
+  Game.prototype.setNextColor = function (row, col, num) {
+    // 给对应的有颜色的方块添加类名
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 4; j++) {
+        if (this.nextBlock.code[i][j] != 0) {
+          $(".tab2")
+            .find("tr")
+            .eq(i)
+            .children("td")
+            .eq(j)
+            .addClass("c" + this.nextBlock.code[i][j]);
+        }
+      }
+    }
+  };
   // 清屏功能
   Game.prototype.clear = function () {
     for (var i = 0; i < this.row; i++) {
       for (var j = 0; j < this.col; j++) {
-        $("tr").eq(i).children("td").eq(j).removeClass();
+        $(".tab1").find("tr").eq(i).children("td").eq(j).removeClass();
+      }
+    }
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 4; j++) {
+        $(".tab2").find("tr").eq(i).children("td").eq(j).removeClass();
       }
     }
   };
@@ -75,6 +111,8 @@
       self.clear();
       // 渲染方块
       self.block.render();
+      // 渲染预览方块
+      self.setNextColor();
       //   渲染地图
       self.map.render(self);
       // 下落
