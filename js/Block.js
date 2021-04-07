@@ -75,6 +75,21 @@
       this.row++;
     }
   };
+  Block.prototype.checkRot = function () {
+    // 备份旧的形状方向
+    var oldDir = this.dir;
+    // 改变新的
+    this.dir = (this.dir + 1) % this.allDir;
+    //   改变方向之后渲染新的方块方向
+    this.code = fangkuai[this.type][this.dir];
+    // 渲染之后的新方块需要判断，是否有能力进行渲染
+    if (!this.check(this.row, this.col)) {
+      // 进入这里了就说明重合了，违规了，打回原形
+      this.dir = oldDir;
+      // 再次渲染方块
+      this.code = fangkuai[this.type][this.dir];
+    }
+  };
   // 将已经到底的方块渲染到地图中
   Block.prototype.renderMap = function () {
     for (var i = 0; i < 4; i++) {
