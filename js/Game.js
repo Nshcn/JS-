@@ -6,6 +6,8 @@
     this.init();
     //   实例方块
     this.block = new Block();
+    //   实例地图
+    this.map = new Map();
     //   启动定时器
     this.start();
   };
@@ -37,7 +39,10 @@
   Game.prototype.start = function () {
     var self = this;
     this.timer = setInterval(() => {
+      // 渲染方块
       self.block.render();
+      //   渲染地图
+      self.map.render(self);
     }, 500);
   };
 })();
