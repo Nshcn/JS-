@@ -33,6 +33,7 @@
     // check函数的row和col指的是要校验的地图的row和col的位置
     for (var i = 0; i < 4; i++) {
       for (var j = 0; j < 4; j++) {
+        //   这里包含了到达地图边界的判断
         if (this.code[i][j] != 0 && game.map.mapCode[row + i][col + j] !== 0) {
           return false;
         }
@@ -51,6 +52,27 @@
       game.block = new Block();
       // 方块已经到底了，然后要渲染到地图的code中
       this.renderMap();
+    }
+  };
+  // 判断是否能够向左移动，如果可以则移动
+  Block.prototype.checkLeft = function () {
+    // 判断是否可以向左
+    if (this.check(this.row, this.col - 1)) {
+      this.col--;
+    }
+  };
+  // 判断是否能够右移动，如果可以则移动
+  Block.prototype.checkRight = function () {
+    // 判断是否可以向右
+    if (this.check(this.row, this.col + 1)) {
+      this.col++;
+    }
+  };
+  Block.prototype.checkBlockEnd = function () {
+    // 使用while循环，如果当前的check返回的是true则代表能够下移，继续让row++
+    while (this.check(this.row + 1, this.col)) {
+      // 改变方向
+      this.row++;
     }
   };
   // 将已经到底的方块渲染到地图中

@@ -7,9 +7,11 @@
     //   实例方块
     this.block = new Block();
     //   实例地图
-    this.map = new Map();
+    this.map = new Map(this);
     //   启动定时器
     this.start();
+    //   事件监听
+    this.bindEvent();
   };
   Game.prototype.init = function () {
     // 初始化大表格
@@ -43,6 +45,28 @@
         $("tr").eq(i).children("td").eq(j).removeClass();
       }
     }
+  };
+  Game.prototype.bindEvent = function () {
+    // 备份
+    var self = this;
+
+    $(window).keydown(function (event) {
+      console.log(event.keyCode);
+      // console.log(event.keydown);
+      if (event.keyCode == 37) {
+        //判断时候有向左移动的能力
+        self.block.checkLeft();
+      } else if (event.keyCode == 39) {
+        //判断时候有右左移动的能力
+        self.block.checkRight();
+      } else if (event.keyCode == 32) {
+        // 一键到底，空格到底
+        self.block.checkBlockEnd();
+      } else if (event.keyCode == 38) {
+        // 键盘上用来切换方向
+        self.block.checkRot();
+      }
+    });
   };
   Game.prototype.start = function () {
     var self = this;
