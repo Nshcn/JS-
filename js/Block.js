@@ -52,6 +52,8 @@
       game.block = new Block();
       // 方块已经到底了，然后要渲染到地图的code中
       this.renderMap();
+      // 判断是否可以消行
+      game.map.checkRemove();
     }
   };
   // 判断是否能够向左移动，如果可以则移动
